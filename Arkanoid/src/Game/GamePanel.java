@@ -15,7 +15,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	public static final int WIDTH =800;
 	public static final int HEIGHT = 600;	
-	public static final int SIZE_PLAYER = 100;	
+	public static final int SIZE_PLAYER = 150;	
+	
+	public static final int sizeX = 25;	
+	public static final int sizeY = 10;	
 	//Render
 	//private Graphics g2d;
 
@@ -23,12 +26,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	private Thread thread; 
 	private boolean running;
 	//game items 
-	private Player player;
-	private Ball ball;
+
 	
+		
 	//movment
 	private int dx=20;
-
+	//Abstract Factory
+	private FactoryBall FactoryBall;
+	private FactoryGun FactoryGun;
 
 	
 	//key input 
@@ -61,11 +66,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int k = e.getKeyCode();		
 
-		if(k == KeyEvent.VK_LEFT) player.move(-dx);//left =true; //update();player.move(-dx);}
-		if(k == KeyEvent.VK_RIGHT) player.move(dx);//right =true;//update();player.move(dx);}
-
-		
-		
+		if(k == KeyEvent.VK_LEFT) FactoryBall.player.move(-dx);
+		if(k == KeyEvent.VK_RIGHT) FactoryBall.player.move(dx);
+		if(k == KeyEvent.VK_SPACE){FactoryGun.setPosition(FactoryBall.player.getX()); FactoryGun.createProductA();		
+		FactoryGun.setPosition(FactoryBall.player.getX()+SIZE_PLAYER-8); FactoryGun.createProductA();	}	
 
 	}
 
@@ -90,18 +94,33 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	
 	private void init() 
 	{
+	
+		
+	
+	
 		running= true;		
-		player = new Player(SIZE_PLAYER);
-		player.setPosition(WIDTH/2 );
-		player.setY(HEIGHT-50);	
-		ball= new Ball(20,WIDTH,HEIGHT);
-		ball.setPosition(WIDTH/2, HEIGHT/2);
+		
+
+
+		
+		FactoryGun = new FactoryGun();
+		FactoryGun.setY(530);
+		FactoryGun.setSize(sizeX, sizeY);	
+		FactoryGun.createProductB();
+		
+		
+		FactoryBall = new FactoryBall();
+		FactoryBall.setSize(sizeX, sizeY);	
+		FactoryBall.createProductB();
+		FactoryBall.createProductA();
 		
 			
 	}
 	
 	private void update(){
-		   repaint(); // xD 		
+		   repaint(); 
+		   FactoryGun.move();
+		   FactoryBall.move();
 	}
 
 	
@@ -109,8 +128,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		g2d.setColor(Color.black); // czarne t³o 
 		g2d.fillRect(0,0,WIDTH,HEIGHT);		
 		
-		player.render(g2d); // paletka 
-		ball.render(g2d);
+		//player.render(g2d); // paletka 
+	
+		
+		FactoryGun.render(g2d);
+		FactoryBall.render(g2d);
 
 	}
 

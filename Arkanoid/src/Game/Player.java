@@ -2,6 +2,7 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 
 public class Player {
@@ -22,7 +23,7 @@ public void setPosition(int x){
 	public void move(int dx){
 		x+=dx;	
 		
-		///xD do poprawy xD@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 		if(x<0){
 			x=0;
 		}
@@ -30,7 +31,7 @@ public void setPosition(int x){
 		{
 			x=800-size;
 		}
-		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 		
 	}
 	
@@ -39,5 +40,10 @@ public void setPosition(int x){
 		g2d.fillRect(x, y, size, 20); // 20 to wysokoœæ deski 
 		
 	}
+	public Rectangle getBound(){
+		return new Rectangle(x,y, size,  20);	
+		
+	}
+
 
 }

@@ -2,13 +2,15 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
-public class Ball implements Runnable {
+public class Ball extends AbstractProductA implements Runnable {
 	private int x,y,size;
 
 	private int WIDTH ;
 	public int HEIGHT ;
-	
+	private boolean UD;
+	private boolean RL;
 	
 	private Thread thread; 
 	
@@ -18,6 +20,10 @@ public class Ball implements Runnable {
 	public void setX(int x){this.x = x;}
 	public void setY(int y){this.y = y;}
 	
+	public void swap(){
+		UD =! UD;
+		RL =! RL;
+	}
 	
 	public Ball(int size,int WIDTH ,int HEIGHT){
 		this.size = size;
@@ -25,6 +31,8 @@ public class Ball implements Runnable {
 		thread.start();	
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
+		UD = false;
+		RL = true;
 	}
 	
 
@@ -45,14 +53,20 @@ public class Ball implements Runnable {
 			e1.printStackTrace();
 		}
 		 for (;;) 			 
-		 {			 
-			 if((x-size)<WIDTH)x++;
+		 {		
+			 
+			 if(UD== true)y++;else y--;
+			 if(RL== true)x++;else x--;			 
+			 if(x>WIDTH-size)RL=!RL;
+			 if(x<0)RL= !RL;			 
+			 if(y<0)UD= !UD;
+			// if(y>HEIGHT)UD= !UD;
 			
 
 			 
 			 try {
 				
-				Thread.sleep(10);
+				Thread.sleep(5);
 			} catch (InterruptedException e) {				
 				e.printStackTrace();
 			}	
@@ -65,7 +79,15 @@ public class Ball implements Runnable {
 	public void render(Graphics g2d){
 		g2d.setColor(Color.RED);		
 		g2d.fillOval(x, y, size, size);		
+		
+		if(y>HEIGHT){
+			g2d.drawString("GAME OVER",370, 250);
+		}
+
 	}
-	
+	public Rectangle getBound(){
+		return new Rectangle(x,y, size,  size);			
+		
+	}
 
 }
