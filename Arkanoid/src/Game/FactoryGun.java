@@ -46,45 +46,31 @@ public class FactoryGun implements AbstractFactory {
 	public void move()
 	{
 		for(Gun e: GUN){
-			e.move(8);
-			if(e.getY()<100) GUN.remove(e); 	
-		
-		}
-		for(Gun e: GUN){
 			for(RGun f: RGUN){	
 			if(e.getBound().intersects(f.getBound())){RGUN.remove(f); GUN.remove(e); }
 		}}
-		
+		for(Gun e: GUN){
+			e.move(8);
+			if(e.getY()<0) GUN.remove(e); 	// sprz¹tanie po pistolecie 		
+		}	
 	}
 	
-	
-	
-
 	@Override
 	public void createProductB() {
-		
+		for(int j = 0; j <8; j++ ){		
 		for(int i =0; i<30 ;i++){
 		RGun g = new RGun(sizeX, sizeY);
-		g.setPosition(15+(i*sizeX), 300);
-		RGUN.add(g);}
-		
+		g.setPosition(15+(i*sizeX), 250+(j*sizeY));
+		RGUN.add(g);}}		
 	}
-
 	public void render(Graphics g2d) {
 		if(GUN != null){
 			 for (Gun  e: GUN){
 				   e.render(g2d);			   
-				  }}
-		
+				  }}		
 		if(RGUN != null){
 			 for (RGun  e: RGUN){
 				   e.render(g2d);			   
-				  }}
-		
-		
-		
+				  }}		
 	}	
-
-	
-
 }

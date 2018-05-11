@@ -30,13 +30,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	
 		
 	//movment
-	private int dx=20;
+	private int dx=7;
+	private boolean LEFT;
+	private boolean RIGHT;
+	private boolean PAUSE;
 	//Abstract Factory
 	private FactoryBall FactoryBall;
 	private FactoryGun FactoryGun;
 
 	
-	//key input 
+
 
 	
 	public GamePanel(){		
@@ -66,11 +69,23 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int k = e.getKeyCode();		
 
-		if(k == KeyEvent.VK_LEFT) FactoryBall.player.move(-dx);
-		if(k == KeyEvent.VK_RIGHT) FactoryBall.player.move(dx);
+		if(k == KeyEvent.VK_LEFT) 	LEFT=true;		//FactoryBall.player.move(-dx);
+		if(k == KeyEvent.VK_RIGHT)	RIGHT=true;		// FactoryBall.player.move(dx);
 		if(k == KeyEvent.VK_SPACE){FactoryGun.setPosition(FactoryBall.player.getX()); FactoryGun.createProductA();		
 		FactoryGun.setPosition(FactoryBall.player.getX()+SIZE_PLAYER-8); FactoryGun.createProductA();	}	
+		if(k == KeyEvent.VK_ESCAPE) init();
+		if(k == KeyEvent.VK_ENTER) PAUSE=!PAUSE;
 
+	}
+	
+	
+	@Override
+	public void keyReleased(KeyEvent e) {
+		int k = e.getKeyCode();
+		
+		if(k == KeyEvent.VK_LEFT) 	LEFT=false;	
+		if(k == KeyEvent.VK_RIGHT)	RIGHT=false;
+		
 	}
 
 
@@ -94,26 +109,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	
 	private void init() 
 	{
-	
-		
-	
-	
+		PAUSE= false;
 		running= true;		
-		
-
-
-		
 		FactoryGun = new FactoryGun();
 		FactoryGun.setY(530);
 		FactoryGun.setSize(sizeX, sizeY);	
-		FactoryGun.createProductB();
-		
-		
+		FactoryGun.createProductB();		
 		FactoryBall = new FactoryBall();
 		FactoryBall.setSize(sizeX, sizeY);	
 		FactoryBall.createProductB();
-		FactoryBall.createProductA();
-		
+		FactoryBall.createProductA();		
 			
 	}
 	
@@ -121,6 +126,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		   repaint(); 
 		   FactoryGun.move();
 		   FactoryBall.move();
+		   if(LEFT)FactoryBall.player.move(-dx);
+		   if(RIGHT)FactoryBall.player.move(dx);
+		   if(PAUSE) FactoryBall.BALL.setPAUSE(true);
+		   else FactoryBall.BALL.setPAUSE(false);
+		   
 	}
 
 	
@@ -136,10 +146,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	}
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

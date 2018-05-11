@@ -11,6 +11,7 @@ public class Ball extends AbstractProductA implements Runnable {
 	public int HEIGHT ;
 	private boolean UD;
 	private boolean RL;
+	private boolean PAUSE; 
 	
 	private Thread thread; 
 	
@@ -19,10 +20,11 @@ public class Ball extends AbstractProductA implements Runnable {
 	public int getY(){return y;}
 	public void setX(int x){this.x = x;}
 	public void setY(int y){this.y = y;}
+	public void setPAUSE(boolean PAUSE){this.PAUSE = PAUSE;}
 	
 	public void swap(){
 		UD =! UD;
-		RL =! RL;
+		//RL =! RL;
 	}
 	
 	public Ball(int size,int WIDTH ,int HEIGHT){
@@ -52,16 +54,16 @@ public class Ball extends AbstractProductA implements Runnable {
 			
 			e1.printStackTrace();
 		}
+		
 		 for (;;) 			 
 		 {		
-			 
+			 if(!PAUSE){
 			 if(UD== true)y++;else y--;
 			 if(RL== true)x++;else x--;			 
 			 if(x>WIDTH-size)RL=!RL;
 			 if(x<0)RL= !RL;			 
 			 if(y<0)UD= !UD;
-			// if(y>HEIGHT)UD= !UD;
-			
+			 }
 
 			 
 			 try {

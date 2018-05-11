@@ -31,13 +31,11 @@ public class FactoryBall implements AbstractFactory {
 
 	}
 	public void move()
-	{
-		
+	{		
 			for(RBall f: RBALL){	
 			if(f.getBound().intersects(BALL.getBound())){ RBALL.remove(f);BALL.swap(); }
 			}
-			if(BALL.getBound().intersects(player.getBound())){BALL.swap();}
-				
+			if(BALL.getBound().intersects(player.getBound())){BALL.swap();}			
 	}
 
 	@Override
@@ -56,8 +54,7 @@ public class FactoryBall implements AbstractFactory {
 				   e.render(g2d);			   
 				  }}
 		if(BALL != null)BALL.render(g2d);
-		player.render(g2d);
-		
+		player.render(g2d);		
 	}
 
 }
