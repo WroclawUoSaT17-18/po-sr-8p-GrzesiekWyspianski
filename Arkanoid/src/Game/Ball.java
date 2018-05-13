@@ -23,8 +23,7 @@ public class Ball extends AbstractProductA implements Runnable {
 	public void setPAUSE(boolean PAUSE){this.PAUSE = PAUSE;}
 	
 	public void swap(){
-		UD =! UD;
-		//RL =! RL;
+		UD =! UD;		
 	}
 	
 	public Ball(int size,int WIDTH ,int HEIGHT){
@@ -47,6 +46,8 @@ public class Ball extends AbstractProductA implements Runnable {
 		this.y =y;
 		
 	}
+	
+
 	 public void run() {
 		 try {
 			Thread.sleep(1000); // odczekanie 1 s przed startem 

@@ -38,8 +38,7 @@ public  class Gun extends AbstractProductA {
 	}
 	public Rectangle getBound(){
 		return new Rectangle(x,y, size, 15);
-	}
-	
+	}	
 
 
 	
