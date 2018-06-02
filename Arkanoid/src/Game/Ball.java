@@ -74,10 +74,7 @@ public class Ball extends AbstractProductA implements Runnable {
 				e.printStackTrace();
 			}	
 		 }
-	 }
-	
-
-	
+	 }	
 	
 	public void render(Graphics g2d){
 		g2d.setColor(Color.RED);		

@@ -73,4 +73,15 @@ public class FactoryGun implements AbstractFactory {
 				   e.render(g2d);			   
 				  }}		
 	}	
+	
+	public int getLength()
+	{
+		int i =0;
+		for(Gun e: GUN){
+			i++;
+		}
+		return i;
+	}
+	
+	
 }
